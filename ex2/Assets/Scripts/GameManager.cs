@@ -46,7 +46,11 @@ public class GameManager : Singleton<GameManager>
 
     void Update()
     {
-
+        // 0 - Reset scene cheat
+        if (Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
     }
 
     private void UpdatePointsText()

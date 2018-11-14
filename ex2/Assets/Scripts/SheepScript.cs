@@ -42,12 +42,6 @@ public class SheepScript : MonoBehaviour
         {
             this.sheepObject.AddForce(-transform.up * this.mSpeed * Time.deltaTime);
         }
-
-        // 0 - Reset scene cheat
-        if (Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-        }
     }
 
     public int Points()
