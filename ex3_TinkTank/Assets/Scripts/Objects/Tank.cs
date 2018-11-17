@@ -31,7 +31,7 @@ public class Tank : MonoBehaviour {
             this.tankObject.AddForce(-transform.up * this.mSpeed * Time.deltaTime);
         }
 
-        if (Input.GetKey(fire))
+        if (Input.GetKeyDown(fire))
         {
             this.Fire();
         }

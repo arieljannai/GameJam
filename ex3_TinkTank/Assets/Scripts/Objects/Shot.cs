@@ -29,11 +29,22 @@ public class Shot : MonoBehaviour {
         this.owner = player.GetComponent<Tank>();
     }
 
+    public Tank GetOwner() { return this.owner; }
+
     public void OnShotRecycle()
     {
         if (onShotRecycle != null)
         {
             //onShotRecycle.Invoke()
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag != "Shot" && !(collision.gameObject.tag == "Player" && collision.gameObject.name == this.owner.name))
+        {
+            Debug.Log(collision.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+            ShotPool.Instance.RecycleShot(this);
         }
     }
 }
