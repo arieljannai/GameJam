@@ -163,6 +163,9 @@ MonoBehaviour:
   down: down
   fire: backspace
   mSpeed: 1000
+  objBase: {fileID: 957552187}
+  objBody: {fileID: 860789230}
+  objBarrel: {fileID: 654335135}
 --- !u!50 &30795398
 Rigidbody2D:
   serializedVersion: 4
@@ -422,7 +425,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1169,6 +1172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 30795395}
   player2: {fileID: 1723970889}
+  Ball: {fileID: 2065537667}
 --- !u!4 &1502065634
 Transform:
   m_ObjectHideFlags: 0
@@ -1344,6 +1348,9 @@ MonoBehaviour:
   down: s
   fire: caps lock
   mSpeed: 1000
+  objBase: {fileID: 1274825903}
+  objBody: {fileID: 2060415071}
+  objBarrel: {fileID: 784411337}
 --- !u!50 &1723970892
 Rigidbody2D:
   serializedVersion: 4

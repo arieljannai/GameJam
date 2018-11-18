@@ -6,6 +6,7 @@ public class GameManager : Singleton<GameManager> {
 
     public GameObject player1;
     public GameObject player2;
+    public GameObject Ball;
 
     protected GameManager() { }
 

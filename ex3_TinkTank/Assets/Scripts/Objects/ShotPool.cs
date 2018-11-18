@@ -53,21 +53,19 @@ public class ShotPool : Singleton<ShotPool> {
         if (player.name == GameManager.Instance.player1.name)
         {
             Debug.Log("Player1: Trying to shoot");
-            Debug.Log("aaaa" + this.player1AvailableShots.Count);
-            Debug.Log("bbbb" + this.shotsPoolSize);
             if (this.player1AvailableShots.Count > 0)
             {
                 GameObject shot = this.player1AvailableShots.Find(x => x);
                 this.player1AvailableShots.Remove(shot);
                 this.player1ShotsInUse.Add(shot);
-                shot.transform.position = GameManager.Instance.player1.transform.Find("Barrel1").position;
-                Transform barrel1 = GameManager.Instance.player1.transform.Find("Barrel1");
-                //barrel1.transform.Rotate(Vector3.forward, 40);
+                shot.transform.position = player.objBarrel.transform.position;
+                Transform barrel1 = player.objBarrel.gameObject.transform;
                 shot.transform.LookAt(barrel1);
                 shot.transform.rotation = barrel1.rotation;
                 shot.SetActive(true);
-                //shot.GetComponent<Rigidbody2D>().transform.rotation = GameManager.Instance.player1.transform.Find("Barrel1").rotation;
-                shot.GetComponent<Rigidbody2D>().AddForce(10000 * Vector3.left * Time.deltaTime);
+                // TODO: fix the moving direction
+                shot.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+                shot.GetComponent<Rigidbody2D>().AddForce(10000f * barrel1.transform.up * Time.deltaTime);
             }
             else
             {
@@ -88,16 +86,13 @@ public class ShotPool : Singleton<ShotPool> {
 
         if (shot.GetOwner().name == GameManager.Instance.player1.name)
         {
-            Debug.Log(this.player1AvailableShots.Count);
             this.player1AvailableShots.Add(shot.gameObject);
-            Debug.Log(this.player1AvailableShots.Count);
-            Debug.Log(this.player1ShotsInUse.Count);
             this.player1ShotsInUse.Remove(shot.gameObject);
-            Debug.Log(this.player1ShotsInUse.Count);
         }
         else if (shot.GetOwner().name == GameManager.Instance.player2.name)
         {
-            
+            this.player2AvailableShots.Add(shot.gameObject);
+            this.player2ShotsInUse.Remove(shot.gameObject);
         }
     }
 }

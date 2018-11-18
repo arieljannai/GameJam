@@ -39,11 +39,19 @@ public class Shot : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.gameObject.tag != "Shot" && !(collision.gameObject.tag == "Player" && collision.gameObject.name == this.owner.name))
+        Debug.Log(collider.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+        // Move the ball
+        if (collider.name == "Ball")
         {
-            Debug.Log(collision.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+            // TODO: fix the moving direction
+            GameManager.Instance.Ball.GetComponent<Rigidbody2D>().AddForce(this.transform.up * 10000 * Time.deltaTime);
+        }
+        
+        // Ignore if another shot is the trigger, dispose otherwise
+        if (collider.tag != "Shot" && (!collider.transform.IsChildOf(this.owner.transform)))
+        {
             ShotPool.Instance.RecycleShot(this);
         }
     }
