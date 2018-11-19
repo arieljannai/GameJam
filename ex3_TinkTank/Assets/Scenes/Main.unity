@@ -166,6 +166,7 @@ MonoBehaviour:
   objBase: {fileID: 957552187}
   objBody: {fileID: 860789230}
   objBarrel: {fileID: 654335135}
+  mBarrelMovingAngle: 20
 --- !u!50 &30795398
 Rigidbody2D:
   serializedVersion: 4
@@ -304,11 +305,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4828145587316722, guid: 51d0677aa9b5eb64cb020f8a5b45edd7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 4828145587316722, guid: 51d0677aa9b5eb64cb020f8a5b45edd7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 4828145587316722, guid: 51d0677aa9b5eb64cb020f8a5b45edd7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -465,7 +466,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 654335135}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8, y: 0, z: 0}
+  m_LocalPosition: {x: -0.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.1, z: 0}
   m_Children: []
   m_Father: {fileID: 30795396}
@@ -645,7 +646,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 784411337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 0, z: 0}
+  m_LocalPosition: {x: 0.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.1, z: 0}
   m_Children: []
   m_Father: {fileID: 1723970890}
@@ -1173,6 +1174,8 @@ MonoBehaviour:
   player1: {fileID: 30795395}
   player2: {fileID: 1723970889}
   Ball: {fileID: 2065537667}
+  mBulletSpeed: 10000
+  mBallMovingSpeed: 10000
 --- !u!4 &1502065634
 Transform:
   m_ObjectHideFlags: 0
@@ -1346,11 +1349,12 @@ MonoBehaviour:
   right: d
   up: w
   down: s
-  fire: caps lock
+  fire: q
   mSpeed: 1000
   objBase: {fileID: 1274825903}
   objBody: {fileID: 2060415071}
   objBarrel: {fileID: 784411337}
+  mBarrelMovingAngle: 20
 --- !u!50 &1723970892
 Rigidbody2D:
   serializedVersion: 4

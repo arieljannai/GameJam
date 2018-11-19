@@ -46,7 +46,7 @@ public class Shot : MonoBehaviour {
         if (collider.name == "Ball")
         {
             // TODO: fix the moving direction
-            GameManager.Instance.Ball.GetComponent<Rigidbody2D>().AddForce(this.transform.up * 10000 * Time.deltaTime);
+            GameManager.Instance.Ball.GetComponent<Rigidbody2D>().AddForce(GameManager.Instance.Ball.transform.right * GameManager.Instance.mBallMovingSpeed * Time.deltaTime);
         }
         
         // Ignore if another shot is the trigger, dispose otherwise

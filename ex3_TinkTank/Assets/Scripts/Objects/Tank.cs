@@ -9,6 +9,7 @@ public class Tank : MonoBehaviour {
     public GameObject objBase;
     public GameObject objBody;
     public GameObject objBarrel;
+    public float mBarrelMovingAngle = 20;
     private Rigidbody2D tankObject;
 
     void Awake()
@@ -35,12 +36,12 @@ public class Tank : MonoBehaviour {
 
         if (Input.GetKey(left))
         {
-            this.objBarrel.transform.RotateAround(this.objBarrel.transform.position, Vector3.forward, 20 * Time.deltaTime);
+            this.objBarrel.transform.RotateAround(this.objBarrel.transform.position, Vector3.forward, this.mBarrelMovingAngle * Time.deltaTime);
         }
 
         if (Input.GetKey(right))
         {
-            this.objBarrel.transform.RotateAround(this.objBarrel.transform.position, Vector3.back, 20 * Time.deltaTime);
+            this.objBarrel.transform.RotateAround(this.objBarrel.transform.position, Vector3.back, this.mBarrelMovingAngle * Time.deltaTime);
         }
 
         if (Input.GetKeyDown(fire))
