@@ -6,15 +6,16 @@ public class Ball : MonoBehaviour {
 
     public float mSpeed = 100;
     public float waitTimeBeforeReappear;
+    public float waitTimeBeforeStart;
     private Rigidbody2D ball;
-    private Vector3 nextMovingDirection;
+    private int nextMovingDirection = 1;
     private Vector3 farPosition = new Vector3(-20, -20, 0);
 
 	void Start()
 	{
-        this.nextMovingDirection = GameManager.Instance.lastLoserPlayer.transform.right;
+        StartCoroutine(this.WaitSeconds(this.waitTimeBeforeStart));
         this.ball = this.GetComponent<Rigidbody2D>();
-        this.ball.AddForce(this.nextMovingDirection * this.mSpeed * Time.deltaTime);
+        this.ball.AddForce(this.nextMovingDirection * Vector3.right * this.mSpeed * Time.deltaTime);
     }
 	
 	void Update()
@@ -58,9 +59,14 @@ public class Ball : MonoBehaviour {
     {
         yield return new WaitForSeconds(this.waitTimeBeforeReappear);
         this.ball.position = Vector3.zero;
-        this.nextMovingDirection = GameManager.Instance.lastLoserPlayer.transform.right;
+        this.nextMovingDirection = GameManager.Instance.lastLoserPlayer == GameManager.Instance.player1 ? 1 : -1;
         this.ball.velocity = Vector3.zero;
         this.ball.angularVelocity = 0;
-        this.ball.AddForce(this.nextMovingDirection * this.mSpeed * Time.deltaTime);
+        this.ball.AddForce(this.nextMovingDirection * Vector3.right * this.mSpeed * Time.deltaTime);
+    }
+
+    IEnumerator WaitSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 }
