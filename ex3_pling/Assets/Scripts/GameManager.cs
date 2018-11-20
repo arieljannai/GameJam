@@ -27,6 +27,11 @@ public class GameManager : Singleton<GameManager> {
         {
             SceneManager.LoadScene("Welcome");
         }
+
+        if (this.isGameOver)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
 	}
 
     public int AddPoint(GameObject player)
