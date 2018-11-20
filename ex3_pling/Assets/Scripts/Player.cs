@@ -23,7 +23,6 @@ public class Player : MonoBehaviour {
         {
             Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(), borders[iB].GetComponent<Collider2D>());
         }
-        
 
         if (this.name == GameManager.Instance.player1.name)
         {
