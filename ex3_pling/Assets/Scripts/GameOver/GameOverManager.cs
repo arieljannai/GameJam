@@ -8,9 +8,14 @@ public class GameOverManager : Singleton<GameOverManager> {
 
     public Text finalScore;
 
-	void Update()
+    //void Start()
+    //{
+    //    DontDestroyOnLoad(this);
+    //}
+
+    void Update()
 	{
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             SceneManager.LoadScene("Welcome");
         }

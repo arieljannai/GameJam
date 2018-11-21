@@ -58,10 +58,11 @@ public class Ball : MonoBehaviour {
     IEnumerator RecycleBall()
     {
         yield return new WaitForSeconds(this.waitTimeBeforeReappear);
-        this.ball.position = Vector3.zero;
-        this.nextMovingDirection = GameManager.Instance.lastLoserPlayer == GameManager.Instance.player1 ? 1 : -1;
-        this.ball.velocity = Vector3.zero;
-        this.ball.angularVelocity = 0;
+        //this.ball.position = Vector3.zero;
+        //this.nextMovingDirection = GameManager.Instance.lastLoserPlayer == GameManager.Instance.player1 ? 1 : -1;
+        //this.ball.velocity = Vector3.zero;
+        //this.ball.angularVelocity = 0;
+        GameManager.Instance.ResetLocations();
         this.ball.AddForce(this.nextMovingDirection * Vector3.right * this.mSpeed * Time.deltaTime);
     }
 

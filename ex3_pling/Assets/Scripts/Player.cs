@@ -23,7 +23,10 @@ public class Player : MonoBehaviour {
         {
             Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(), borders[iB].GetComponent<Collider2D>());
         }
+    }
 
+    void Start()
+    {
         if (this.name == GameManager.Instance.player1.name)
         {
             this.forwardDirection = 1;
@@ -36,10 +39,7 @@ public class Player : MonoBehaviour {
             this.forward = Vector3.back;
             this.back = Vector3.forward;
         }
-    }
 
-    void Start()
-    {
         this.circleFieldPosition = GameManager.Instance.circleField.transform.position;
     }
 	
