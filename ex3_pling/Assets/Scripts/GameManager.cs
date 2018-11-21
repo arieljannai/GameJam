@@ -16,22 +16,11 @@ public class GameManager : Singleton<GameManager> {
     private Vector3 origPosPlayer1, origPosPlayer2, origPosBall;
     public static string finalPointsString = "";
 
-    void Awake()
-    {
-        //DontDestroyOnLoad(this.player1);
-        //DontDestroyOnLoad(this.player2);
-        //DontDestroyOnLoad(this.ball);
-    }
-
 	void Start()
 	{
-        //this.origPosPlayer1 = this.player1.transform.position;
-        //this.origPosPlayer2 = this.player2.transform.position;
-        //this.origPosBall = this.ball.transform.position;
         this.points = new Dictionary<GameObject, int>(2);
         this.points.Add(player1, 0);
-        this.points.Add(player2, 0);
-        
+        this.points.Add(player2, 0);   
     }
 	
 	void Update()
@@ -110,6 +99,6 @@ public class GameManager : Singleton<GameManager> {
 
     public string GetPointsString()
     {
-        return this.points[player1] + " " + this.points[player2];
+        return this.points[player2] + " " + this.points[player1];
     }
 }

@@ -14,6 +14,10 @@ public class Player : MonoBehaviour {
 
     void Awake()
     {
+        //Debug.Log(GameManager.Instance);
+        //Debug.Log(GameManager.Instance.circleField);
+        //Debug.Log(GameManager.Instance.circleField.transform);
+        this.circleFieldPosition = GameManager.Instance.circleField.transform.position;
         this.player = this.GetComponent<Rigidbody2D>();
         this.player.centerOfMass = Vector2.zero;
 
@@ -23,10 +27,7 @@ public class Player : MonoBehaviour {
         {
             Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(), borders[iB].GetComponent<Collider2D>());
         }
-    }
 
-    void Start()
-    {
         if (this.name == GameManager.Instance.player1.name)
         {
             this.forwardDirection = 1;
@@ -39,8 +40,11 @@ public class Player : MonoBehaviour {
             this.forward = Vector3.back;
             this.back = Vector3.forward;
         }
+    }
 
-        this.circleFieldPosition = GameManager.Instance.circleField.transform.position;
+    void Start()
+    {
+        
     }
 	
 	void FixedUpdate()
