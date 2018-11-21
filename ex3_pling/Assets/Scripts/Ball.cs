@@ -5,17 +5,17 @@ using UnityEngine;
 public class Ball : MonoBehaviour {
 
     public float mSpeed = 100;
-    public float waitTimeBeforeReappear;
-    public float waitTimeBeforeStart;
+    public float waitTimeBeforeReappear = 1;
+    public float waitTimeBeforeStart = 3;
     private Rigidbody2D ball;
     private int nextMovingDirection = 1;
     private Vector3 farPosition = new Vector3(-20, -20, 0);
+    private bool firstTime = true;
     
 	void Start()
 	{
-        StartCoroutine(this.WaitSeconds(this.waitTimeBeforeStart));
         this.ball = this.GetComponent<Rigidbody2D>();
-        this.ball.AddForce(this.nextMovingDirection * Vector3.right * this.mSpeed * Time.deltaTime);
+        StartCoroutine(this.StartBall());
     }
 	
 	void Update()
@@ -57,12 +57,18 @@ public class Ball : MonoBehaviour {
 
     IEnumerator RecycleBall()
     {
-        yield return new WaitForSeconds(this.waitTimeBeforeReappear);
         //this.ball.position = Vector3.zero;
-        //this.nextMovingDirection = GameManager.Instance.lastLoserPlayer == GameManager.Instance.player1 ? 1 : -1;
+        this.nextMovingDirection = GameManager.Instance.lastLoserPlayer == GameManager.Instance.player1 ? 1 : -1;
         //this.ball.velocity = Vector3.zero;
         //this.ball.angularVelocity = 0;
         GameManager.Instance.ResetLocations();
+        yield return new WaitForSeconds(this.waitTimeBeforeReappear);
+        this.ball.AddForce(this.nextMovingDirection * Vector3.right * this.mSpeed * Time.deltaTime);
+    }
+
+    IEnumerator StartBall()
+    {
+        yield return new WaitForSeconds(this.waitTimeBeforeStart);
         this.ball.AddForce(this.nextMovingDirection * Vector3.right * this.mSpeed * Time.deltaTime);
     }
 

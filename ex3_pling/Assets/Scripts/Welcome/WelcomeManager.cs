@@ -5,12 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class WelcomeManager : Singleton<WelcomeManager> {
 
-    //void Start()
-    //{
-    //    DontDestroyOnLoad(this);
-    //}
+    protected WelcomeManager() { }
 
-	void Update()
+    void Update()
 	{
 		if (Input.GetKey(KeyCode.Space))
         {

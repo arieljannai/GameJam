@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a3bdb2cd68f901469e7cc149151eb49, type: 3}
-  m_Name: game
+  m_Name: screens
   m_EditorClassIdentifier: 
   debugViews:
     m_Enabled: 1
@@ -100,11 +100,11 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 17.81
+        intensity: 2.29
         threshold: 2.72
         softKnee: 0.99
         radius: 2.62
-        antiFlicker: 0
+        antiFlicker: 1
       lensDirt:
         texture: {fileID: 0}
         intensity: 0
@@ -308,7 +308,7 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       spectralTexture: {fileID: 0}
-      intensity: 0.13
+      intensity: 0.2
   grain:
     m_Enabled: 1
     m_Settings:

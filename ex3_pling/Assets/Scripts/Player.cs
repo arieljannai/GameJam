@@ -7,8 +7,8 @@ public class Player : MonoBehaviour {
 
     public string up, down;
     public float movingSpeed, collisionForce;
-    private Vector3 circleFieldPosition;
-    private Vector3 forward, back;
+    //private Vector3 circleFieldPosition;
+    //private Vector3 forward, back;
     private Rigidbody2D player;
     private int forwardDirection;
 
@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
         //Debug.Log(GameManager.Instance);
         //Debug.Log(GameManager.Instance.circleField);
         //Debug.Log(GameManager.Instance.circleField.transform);
-        this.circleFieldPosition = GameManager.Instance.circleField.transform.position;
+        //this.circleFieldPosition = GameManager.Instance.circleField.transform.position;
         this.player = this.GetComponent<Rigidbody2D>();
         this.player.centerOfMass = Vector2.zero;
 
@@ -31,14 +31,14 @@ public class Player : MonoBehaviour {
         if (this.name == GameManager.Instance.player1.name)
         {
             this.forwardDirection = 1;
-            this.forward = Vector3.forward;
-            this.back = Vector3.back;
+            //this.forward = Vector3.forward;
+            //this.back = Vector3.back;
         }
         else if (this.name == GameManager.Instance.player2.name)
         {
             this.forwardDirection = -1;
-            this.forward = Vector3.back;
-            this.back = Vector3.forward;
+            //this.forward = Vector3.back;
+            //this.back = Vector3.forward;
         }
     }
 

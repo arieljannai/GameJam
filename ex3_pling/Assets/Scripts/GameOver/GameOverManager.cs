@@ -6,11 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class GameOverManager : Singleton<GameOverManager> {
 
-    public Text finalScore;
+    public Text finalScore1;
+    public Text finalScore2;
+
+    protected GameOverManager() { }
 
     void Start()
     {
-        this.finalScore.text = GameManager.finalPointsString;
+        this.finalScore1.text = GameManager.finalPoints[0].ToString();
+        this.finalScore2.text = GameManager.finalPoints[1].ToString();
     }
 
     void Update()
