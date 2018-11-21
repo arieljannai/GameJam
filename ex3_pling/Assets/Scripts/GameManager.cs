@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager> {
     private GameObject winner;
     private Dictionary<GameObject, int> points;
     private Vector3 origPosPlayer1, origPosPlayer2, origPosBall;
+    public static string finalPointsString = "";
 
     void Awake()
     {
@@ -70,6 +71,7 @@ public class GameManager : Singleton<GameManager> {
         {
             this.isGameOver = true;
             this.winner = this.points[player1] == this.winningScore ? player1 : player2;
+            GameManager.finalPointsString = this.GetPointsString();
         }
 
         return this.points[player];
@@ -104,5 +106,10 @@ public class GameManager : Singleton<GameManager> {
         this.player2.gameObject.transform.position = Vector3.zero;
         //this.player2.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         //this.player2.GetComponent<Rigidbody2D>().angularVelocity = 0;
+    }
+
+    public string GetPointsString()
+    {
+        return this.points[player1] + " " + this.points[player2];
     }
 }

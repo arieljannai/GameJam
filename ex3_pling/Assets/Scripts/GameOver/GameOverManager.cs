@@ -8,10 +8,10 @@ public class GameOverManager : Singleton<GameOverManager> {
 
     public Text finalScore;
 
-    //void Start()
-    //{
-    //    DontDestroyOnLoad(this);
-    //}
+    void Start()
+    {
+        this.finalScore.text = GameManager.finalPointsString;
+    }
 
     void Update()
 	{
