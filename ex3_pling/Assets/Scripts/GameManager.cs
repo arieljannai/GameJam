@@ -13,19 +13,24 @@ public class GameManager : Singleton<GameManager> {
     private bool isGameOver = false;
     //private GameObject winner;
     private Dictionary<GameObject, int> points;
-    private Vector3 origPosPlayer1, origPosPlayer2, origPosBall;
-    public static int[] finalPoints = new int[2];
+    //private Vector3 origPosPlayer1, origPosPlayer2, origPosBall;
+    public static int[] finalPoints;
     private AudioSource aSource;
 
     protected GameManager() { }
 
-	void Start()
+    void Start()
 	{
         this.points = new Dictionary<GameObject, int>(2);
         this.points.Add(player1, 0);
         this.points.Add(player2, 0);
+        finalPoints = new int[2];
         aSource = gameObject.GetComponent<AudioSource>();
-}
+        DontDestroyOnLoad(player1);
+        DontDestroyOnLoad(player2);
+        DontDestroyOnLoad(ball);
+        DontDestroyOnLoad(this);
+    }
 	
 	void Update()
 	{
@@ -36,13 +41,14 @@ public class GameManager : Singleton<GameManager> {
 
         if (this.isGameOver)
         {
+            this.Reset();
             SceneManager.LoadScene("GameOver");
         }
 
         // 0 - Reset scene cheat
         if (Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            SceneManager.LoadScene(0);
         }
 
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.E))
@@ -103,5 +109,15 @@ public class GameManager : Singleton<GameManager> {
         this.player2.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         this.player2.GetComponent<Rigidbody2D>().angularVelocity = 0;
         this.player2.GetComponent<Rigidbody2D>().rotation = 0;
+    }
+
+    public void Reset()
+    {
+        this.points = new Dictionary<GameObject, int>(2);
+        this.points.Add(player1, 0);
+        this.points.Add(player2, 0);
+        aSource = gameObject.GetComponent<AudioSource>();
+        this.isGameOver = false;
+        this.lastLoserPlayer = player1;
     }
 }

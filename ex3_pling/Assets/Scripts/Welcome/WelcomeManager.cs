@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class WelcomeManager : Singleton<WelcomeManager> {
 
+    private static bool isFirstRound = true;
+
     protected WelcomeManager() { }
 
     void Update()

@@ -10,7 +10,6 @@ public class Ball : MonoBehaviour {
     private Rigidbody2D ball;
     private int nextMovingDirection = 1;
     private Vector3 farPosition = new Vector3(-20, -20, 0);
-    private bool firstTime = true;
     
 	void Start()
 	{

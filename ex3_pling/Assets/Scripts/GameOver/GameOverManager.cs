@@ -21,7 +21,8 @@ public class GameOverManager : Singleton<GameOverManager> {
 	{
         if (Input.GetKey(KeyCode.Space))
         {
-            SceneManager.LoadScene("Welcome");
+            DestroyImmediate(GameManager.Instance);
+            SceneManager.LoadScene("Main");
         }
     }
 }
