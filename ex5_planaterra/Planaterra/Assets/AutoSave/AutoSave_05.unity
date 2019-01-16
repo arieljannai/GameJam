@@ -161,7 +161,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -204,7 +204,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.86274517, g: 0.10588236, b: 0.45882356, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -456,6 +456,7 @@ GameObject:
   - component: {fileID: 16273873}
   - component: {fileID: 16273872}
   - component: {fileID: 16273874}
+  - component: {fileID: 16273875}
   m_Layer: 0
   m_Name: R2
   m_TagString: Untagged
@@ -544,6 +545,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &16273875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16273871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &19104556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,7 +1327,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1357,7 +1370,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.86274517, g: 0.10588236, b: 0.45882356, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -1718,7 +1731,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &158904680
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1814,6 +1827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
+  fadeOutSpeed: 0
 --- !u!1 &167556041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,7 +1846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &167556042
 Transform:
   m_ObjectHideFlags: 0
@@ -1928,6 +1942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
+  fadeOutSpeed: 0
 --- !u!1 &167768765
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,6 +2112,7 @@ GameObject:
   - component: {fileID: 187927921}
   - component: {fileID: 187927920}
   - component: {fileID: 187927922}
+  - component: {fileID: 187927923}
   m_Layer: 0
   m_Name: R1
   m_TagString: Untagged
@@ -2185,6 +2201,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &187927923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187927919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &199064631
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,6 +3223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 309217228}
   - component: {fileID: 309217227}
+  - component: {fileID: 309217229}
   m_Layer: 0
   m_Name: R6
   m_TagString: Untagged
@@ -3264,6 +3293,18 @@ Transform:
   m_Father: {fileID: 2039125319}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &309217229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309217226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &309980243
 GameObject:
   m_ObjectHideFlags: 0
@@ -3466,7 +3507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &330017866
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3928,6 +3969,7 @@ GameObject:
   - component: {fileID: 412166482}
   - component: {fileID: 412166481}
   - component: {fileID: 412166483}
+  - component: {fileID: 412166484}
   m_Layer: 0
   m_Name: G2
   m_TagString: Untagged
@@ -4016,6 +4058,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &412166484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412166480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &425497216
 GameObject:
   m_ObjectHideFlags: 0
@@ -4185,6 +4239,7 @@ GameObject:
   - component: {fileID: 440198630}
   - component: {fileID: 440198629}
   - component: {fileID: 440198631}
+  - component: {fileID: 440198632}
   m_Layer: 0
   m_Name: R5
   m_TagString: Untagged
@@ -4273,6 +4328,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &440198632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440198628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &451000096
 GameObject:
   m_ObjectHideFlags: 0
@@ -6605,7 +6672,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6648,7 +6715,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.86274517, g: 0.10588236, b: 0.45882356, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -6824,6 +6891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
+  fadeOutSpeed: 0
 --- !u!1 &680170440
 GameObject:
   m_ObjectHideFlags: 0
@@ -6835,6 +6903,7 @@ GameObject:
   - component: {fileID: 680170442}
   - component: {fileID: 680170441}
   - component: {fileID: 680170443}
+  - component: {fileID: 680170444}
   m_Layer: 0
   m_Name: G1
   m_TagString: Untagged
@@ -6923,6 +6992,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &680170444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680170440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &699391948
 GameObject:
   m_ObjectHideFlags: 0
@@ -7254,6 +7335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
+  fadeOutSpeed: 0.00001
 --- !u!1 &743420693
 GameObject:
   m_ObjectHideFlags: 0
@@ -7507,7 +7589,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7550,7 +7632,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.86274517, g: 0.10588236, b: 0.45882356, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -7825,6 +7907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
+  fadeOutSpeed: 0
 --- !u!1 &877547056
 GameObject:
   m_ObjectHideFlags: 0
@@ -8159,7 +8242,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8202,7 +8285,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.86274517, g: 0.10588236, b: 0.45882356, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -8331,6 +8414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
+  fadeOutSpeed: 0.00001
 --- !u!1 &930922869
 GameObject:
   m_ObjectHideFlags: 0
@@ -8681,6 +8765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
+  fadeOutSpeed: 0
 --- !u!1 &973206772
 GameObject:
   m_ObjectHideFlags: 0
@@ -9095,10 +9180,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Color: {r: 0.7169812, g: 0.0033819948, b: 0.0033819948, a: 0}
   player2Color: {r: 0.254539, g: 0.8301887, b: 0.48495293, a: 0}
-  linesWidth: 0.1
+  linesWidth: 0.05
   lineStrechingSpeed: 0.05
   player1DrawLineKey: left shift
   player2DrawLineKey: right shift
+  UI: {fileID: 1736396846}
+  turtleDisc: {fileID: 1351420542}
+  openScreen: {fileID: 1361730681}
   worldRedLand: {fileID: 2039125317}
   worldGreenLand: {fileID: 2075148761}
   constellationsRed: {fileID: 1061862340}
@@ -9113,6 +9201,15 @@ MonoBehaviour:
   holdTexts:
   - {fileID: 595683272}
   - {fileID: 2007596323}
+  shiftToHold:
+  - {fileID: 141989798}
+  - {fileID: 1325861371}
+  winnersNotice:
+  - {fileID: 112585796}
+  - {fileID: 267523193}
+  PlayersMarkers:
+  - {fileID: 1393220258}
+  - {fileID: 1377099164}
 --- !u!4 &1035502955
 Transform:
   m_ObjectHideFlags: 0
@@ -9222,7 +9319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1061862341
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9698,6 +9795,7 @@ GameObject:
   - component: {fileID: 1093741099}
   - component: {fileID: 1093741098}
   - component: {fileID: 1093741100}
+  - component: {fileID: 1093741101}
   m_Layer: 0
   m_Name: G3
   m_TagString: Untagged
@@ -9786,6 +9884,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1093741101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093741097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1095613154
 GameObject:
   m_ObjectHideFlags: 0
@@ -10291,7 +10401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1166569525
 Transform:
   m_ObjectHideFlags: 0
@@ -10387,6 +10497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
+  fadeOutSpeed: 0
 --- !u!1 &1187213975
 GameObject:
   m_ObjectHideFlags: 0
@@ -10515,7 +10626,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10558,7 +10669,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.5882353, g: 0.8000001, b: 0.5294118, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -11244,7 +11355,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11287,7 +11398,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.5882353, g: 0.8000001, b: 0.5294118, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -11542,6 +11653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
+  fadeOutSpeed: 0
 --- !u!1 &1296280999
 GameObject:
   m_ObjectHideFlags: 0
@@ -11913,7 +12025,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11956,7 +12068,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.86274517, g: 0.10588236, b: 0.45882356, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -12050,6 +12162,7 @@ GameObject:
   - component: {fileID: 1361730682}
   - component: {fileID: 1361730683}
   - component: {fileID: 1361730684}
+  - component: {fileID: 1361730685}
   m_Layer: 0
   m_Name: OpenScreen
   m_TagString: Untagged
@@ -12142,6 +12255,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1361730685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361730681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 612d1ce2a4b348c43a8f22040b17db70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1377099164
 GameObject:
   m_ObjectHideFlags: 0
@@ -12451,7 +12576,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12494,7 +12619,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.5882353, g: 0.8000001, b: 0.5294118, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -12746,6 +12871,7 @@ GameObject:
   - component: {fileID: 1427579923}
   - component: {fileID: 1427579922}
   - component: {fileID: 1427579924}
+  - component: {fileID: 1427579925}
   m_Layer: 0
   m_Name: G5
   m_TagString: Untagged
@@ -12834,6 +12960,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1427579925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427579921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1444527014
 GameObject:
   m_ObjectHideFlags: 0
@@ -12916,7 +13054,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12959,7 +13097,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.5882353, g: 0.8000001, b: 0.5294118, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -13211,6 +13349,7 @@ GameObject:
   - component: {fileID: 1478534584}
   - component: {fileID: 1478534583}
   - component: {fileID: 1478534585}
+  - component: {fileID: 1478534586}
   m_Layer: 0
   m_Name: R4
   m_TagString: Untagged
@@ -13299,6 +13438,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1478534586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478534582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1486139433
 GameObject:
   m_ObjectHideFlags: 0
@@ -13863,7 +14014,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13906,7 +14057,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.5882353, g: 0.8000001, b: 0.5294118, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -14238,7 +14389,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14281,7 +14432,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.5882353, g: 0.8000001, b: 0.5294118, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -14612,6 +14763,7 @@ GameObject:
   - component: {fileID: 1655457994}
   - component: {fileID: 1655457993}
   - component: {fileID: 1655457995}
+  - component: {fileID: 1655457996}
   m_Layer: 0
   m_Name: R3
   m_TagString: Untagged
@@ -14700,6 +14852,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1655457996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655457992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1659090452
 GameObject:
   m_ObjectHideFlags: 0
@@ -15223,7 +15387,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15402,7 +15566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1748827536
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15498,6 +15662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
+  fadeOutSpeed: 0
 --- !u!1 &1750855319
 GameObject:
   m_ObjectHideFlags: 0
@@ -15626,7 +15791,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15669,7 +15834,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.86274517, g: 0.10588236, b: 0.45882356, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -15865,6 +16030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
+  fadeOutSpeed: 0
 --- !u!1 &1785095447
 GameObject:
   m_ObjectHideFlags: 0
@@ -15909,6 +16075,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1801903994}
   - component: {fileID: 1801903993}
+  - component: {fileID: 1801903995}
   m_Layer: 0
   m_Name: G6
   m_TagString: Untagged
@@ -15978,6 +16145,18 @@ Transform:
   m_Father: {fileID: 2075148763}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1801903995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801903992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1803284528
 GameObject:
   m_ObjectHideFlags: 0
@@ -15996,7 +16175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1803284529
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16092,6 +16271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
+  fadeOutSpeed: 0
 --- !u!1 &1805354495
 GameObject:
   m_ObjectHideFlags: 0
@@ -16326,7 +16506,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16369,7 +16549,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.5882353, g: 0.8000001, b: 0.5294118, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -17133,7 +17313,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17451,6 +17631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
+  fadeOutSpeed: 0
 --- !u!1 &1990818206
 GameObject:
   m_ObjectHideFlags: 0
@@ -17588,7 +17769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2001341581
 Transform:
   m_ObjectHideFlags: 0
@@ -17684,6 +17865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
+  fadeOutSpeed: 0
 --- !u!1 &2005135758
 GameObject:
   m_ObjectHideFlags: 0
@@ -17774,6 +17956,7 @@ GameObject:
   - component: {fileID: 2005459751}
   - component: {fileID: 2005459750}
   - component: {fileID: 2005459752}
+  - component: {fileID: 2005459753}
   m_Layer: 0
   m_Name: G4
   m_TagString: Untagged
@@ -17862,6 +18045,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2005459753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005459749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f207973949bd14d8930b90c3f19830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2007596323
 GameObject:
   m_ObjectHideFlags: 0
@@ -17990,7 +18185,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18033,7 +18228,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.86274517, g: 0.10588236, b: 0.45882356, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -19042,7 +19237,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19085,7 +19280,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.5882353, g: 0.8000001, b: 0.5294118, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

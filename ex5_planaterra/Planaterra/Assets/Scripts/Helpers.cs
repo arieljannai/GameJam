@@ -40,9 +40,14 @@ namespace ExtensionsMethods
     {
         public static List<GameObject> GetChildrenGameObjects(this GameObject gameObject)
         {
+            return gameObject.GetChildrenGameObjects(gameObject.transform.childCount);
+        }
+
+        public static List<GameObject> GetChildrenGameObjects(this GameObject gameObject, int objectsLimit)
+        {
             List<GameObject> list = new List<GameObject>(gameObject.transform.childCount);
 
-            for (int i = 0; i < gameObject.transform.childCount; i++)
+            for (int i = 0; i < objectsLimit; i++)
             {
                 list.Add(gameObject.transform.GetChild(i).gameObject);
             }
@@ -59,6 +64,45 @@ namespace ExtensionsMethods
         public static float GetOpacity(this GameObject go)
         {
             return go.transform.GetComponent<SpriteRenderer>().color.a;
+        }
+
+        public static Animator Animator(this GameObject go)
+        {
+            return go.GetComponent<Animator>();
+        }
+
+        public static Object Script(this GameObject go, System.Type className)
+        {
+            return go.GetComponent(className);
+        }
+    }
+
+    public static class AnimatorExtensions
+    {
+        public static void SetState(this Animator animator, int value)
+        {
+            animator.SetInteger("State", value);
+        }
+
+        public static int GetState(this Animator animator)
+        {
+            return animator.GetInteger("State");
+        }
+
+        public static bool IsPlaying(this Animator animator)
+        {
+            
+            return animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        }
+
+        public static bool IsPlaying(this Animator animator, string stateName)
+        {
+            return animator.IsPlaying() && animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        }
+
+        public static bool Done(this Animator animator)
+        {
+            return !animator.IsPlaying();
         }
     }
 
