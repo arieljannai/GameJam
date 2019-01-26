@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Helpers
@@ -126,7 +125,7 @@ namespace ExtensionsMethods
 
             for (int i = 0; i < v2s.Count; i++)
             {
-                v3s[i] = v2s[i];
+                v3s[i] = new Vector3(v2s[i].x, v2s[i].y, 0);
             }
 
             return v3s;
@@ -139,6 +138,40 @@ namespace ExtensionsMethods
             v2s.ForEach(x => v3s.Add(x));
 
             return v3s;
+        }
+    }
+
+    public static class ArrayExtensions
+    {
+        private static readonly string DEFAULT_PREFIX = "";
+        private static readonly string DEFAULT_SUFFIX = "";
+        private static readonly string DEFAULT_SEPARATOR = ", ";
+
+        public static string ToPrintableString<T>(this T[] objs)
+        {
+            return objs.ToPrintableString(DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_SEPARATOR);
+        }
+
+        public static string ToPrintableString<T>(this T[] objs, string separator)
+        {
+            return objs.ToPrintableString(DEFAULT_PREFIX, DEFAULT_SUFFIX, separator);
+        }
+
+        public static string ToPrintableString<T>(this T[] objs, string prefix, string suffix)
+        {
+            return objs.ToPrintableString(prefix, suffix, DEFAULT_SEPARATOR);
+        }
+
+        public static string ToPrintableString<T>(this T[] objs, string prefix, string suffix, string separator)
+        {
+            string str = prefix;
+            for (int i = 0; i < objs.Length - 1; i++)
+            {
+                str += objs[i].ToString() + separator;
+            }
+
+            str += objs[objs.Length - 1].ToString() + suffix;
+            return str;
         }
     }
 }

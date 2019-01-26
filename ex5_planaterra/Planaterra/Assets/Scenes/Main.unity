@@ -12496,10 +12496,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Color: {r: 0.7169812, g: 0.0033819948, b: 0.0033819948, a: 0}
   player2Color: {r: 0.254539, g: 0.8301887, b: 0.48495293, a: 0}
-  linesWidth: 0.05
-  lineStrechingSpeed: 0.05
   player1DrawLineKey: left shift
   player2DrawLineKey: right shift
+  linesWidth: 0.05
+  lineStrechingSpeed: 0.05
+  nShapesCount: 5
+  playingWithTutorial: 1
+  minimunSuccessRate: 320000003c0000005000000050000000500000005a000000
   UI: {fileID: 1736396846}
   turtleDisc: {fileID: 1351420542}
   openScreen: {fileID: 1361730681}
@@ -12509,8 +12512,6 @@ MonoBehaviour:
   constellationsGreen: {fileID: 330017865}
   tutorialRedShape: {fileID: 911632017}
   tutorialGreenShape: {fileID: 725467241}
-  nShapesCount: 5
-  playingWithTutorial: 1
   shiftTexts:
   - {fileID: 1990818206}
   - {fileID: 494370861}
@@ -12526,6 +12527,7 @@ MonoBehaviour:
   PlayersMarkers:
   - {fileID: 1393220258}
   - {fileID: 1377099164}
+  stayOnWinningStateTime: 3
 --- !u!4 &1035502955
 Transform:
   m_ObjectHideFlags: 0

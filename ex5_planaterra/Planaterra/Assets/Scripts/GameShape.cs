@@ -24,7 +24,7 @@ public class GameShape : MonoBehaviour
     private bool isActive = false;
     private bool isTutorial = false;
     private bool shouldTryAgain = false;
-    private bool disableWhenDone = true;
+    private bool disableWhenDone = false;
     private bool shouldFadeOut = false;
     private float strechingLineDrawingSpeed;
     private float strechingLineLength;
@@ -118,26 +118,6 @@ public class GameShape : MonoBehaviour
                     EventManager.Instance.TriggerEvent(EventManager.EVENT__STARTED_DRAWING, this.GetPlayerIndex());
                 }
             }
-
-            //if (this.shouldFadeOut)
-            //{
-            //float newOpacity = this.gameObject.GetOpacity() - this.fadeOutSpeed;
-            //newOpacity = newOpacity < 0 ? 0 : newOpacity;
-            //Debug.Log("newOpacity " + newOpacity);
-
-            //Color cStart = this.lrShape.startColor;
-            //Color cEnd = this.lrShape.endColor;
-            //cStart.a = newOpacity;
-            //cEnd.a = newOpacity;
-
-            //if (newOpacity == 0)
-            //{
-            //this.gameObject.SetOpacity(1);
-            //this.gameObject.SetActive(false);
-            //}
-
-            //this.gameObject.SetActive(false);
-            //} 
         }
     }
 
@@ -205,6 +185,11 @@ public class GameShape : MonoBehaviour
         return 0;
     }
 
+    void InitEverything()
+    {
+        
+    }
+
     private void HandleLineDrawing()
     {
         int i = this.idxHandleLineDrawing;
@@ -212,12 +197,11 @@ public class GameShape : MonoBehaviour
 
 
         if (i < this.pointsToDraw.Count - 1)
-        {
-            //positions = this.ToVector3Arr(this.pointsToDraw.GetRange(0, i + 2));
+        {   
             positions = this.pointsToDraw.GetRange(0, i + 2).ToVector3Array();
-            
+
+            this.lrShape.positionCount = positions.Length;
             this.lrShape.SetPositions(positions);
-            this.lrShape.positionCount = i + 2;
 
             Vector3 vStrechingLine = this.mdStrechingLine.Point.transform.position;
             Vector3 vStrechingLineEnd = new Vector3(vStrechingLine.x, vStrechingLine.y + (this.strechingLineLength - this.wrappingPartLineLength * (i+2)));
@@ -228,34 +212,6 @@ public class GameShape : MonoBehaviour
         }
         else
         {
-            //Vector3[] positions = new Vector3[this.lrShape.positionCount];
-            //this.lrShape.GetPositions(positions);
-            //Vector3[] positions = new Vector3[this.pointsToDraw.Count + 1];
-            //for (int j = 0; j < this.pointsToDraw.Count; j++)
-            //{
-            //    positions[j] = this.pointsToDraw[j];
-            //}
-
-            //positions[positions.Length - 1] = positions[positions.Length - 2];
-
-            //this.lrShape.SetPositions(positions);
-            //this.lrShape.positionCount = positions.Length;
-
-            //Vector3[] positions = new Vector3[this.lrShape.positionCount];
-            //this.lrShape.GetPositions(positions);
-            //List<Vector3> nonZeros = new List<Vector3>();
-
-            //for (int j = 0; j < positions.Length; j++)
-            //{
-            //    if (positions[j] != Vector3.zero)
-            //    {
-            //        nonZeros.Add(positions[j]);
-            //    }
-            //}
-
-            //this.lrShape.SetPositions(nonZeros.ToArray());
-            //this.lrShape.positionCount = nonZeros.Count;
-
             Vector3 vStrechingLine = this.mdStrechingLine.Point.transform.position;
             this.mdStrechingLine.Renderer.SetPositions(new Vector3[] { vStrechingLine, vStrechingLine });
 
@@ -270,6 +226,7 @@ public class GameShape : MonoBehaviour
 
             }
 
+            this.ResetShape();
             EventManager.Instance.TriggerEvent(EventManager.EVENT__FINISHED_DRAWING, this.GetPlayerIndex());
         }
 
@@ -402,6 +359,7 @@ public class GameShape : MonoBehaviour
 
     public void ResetShape()
     {
+        this.InitEverything();
         this.idxHandleLineDrawing = 0;
         this.isReadyForDrawing = false;
         this.gameLineEnd = this.gameLineStart;
