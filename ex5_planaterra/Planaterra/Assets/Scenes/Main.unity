@@ -12527,7 +12527,7 @@ MonoBehaviour:
   PlayersMarkers:
   - {fileID: 1393220258}
   - {fileID: 1377099164}
-  stayOnWinningStateTime: 3
+  stayOnWinningStateTime: 2
 --- !u!4 &1035502955
 Transform:
   m_ObjectHideFlags: 0

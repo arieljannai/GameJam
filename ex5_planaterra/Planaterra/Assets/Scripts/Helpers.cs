@@ -1,9 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Helpers
 {
-    
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static string GetCurrentMethod()
+    {
+        var st = new StackTrace();
+        var sf = st.GetFrame(1);
+
+        return sf.GetMethod().Name;
+    }
 }
 
 namespace ExtensionsMethods
@@ -172,6 +181,15 @@ namespace ExtensionsMethods
 
             str += objs[objs.Length - 1].ToString() + suffix;
             return str;
+        }
+    }
+
+    public static class BooleanExtensions
+    {
+        public static bool Invert(this bool b)
+        {
+            b = !b;
+            return b;
         }
     }
 }

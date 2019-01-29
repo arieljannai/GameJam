@@ -13,8 +13,12 @@ public class EventManager : Singleton<EventManager>
     public const string EVENT__TUTORIAL_END = "event_tutorial_end";
     public const string EVENT__CONSTELLATION_END = "event_constellation_end";
     public const string EVENT__LAND_ON = "event_land_on";
+    public const string EVENT__FINISHED_STRECHING = "event_finished_streching";
     public const string EVENT__STARTED_DRAWING = "event_started_drawing";
     public const string EVENT__FINISHED_DRAWING = "event_finished_drawing";
+    public const string EVENT__FINISHED_SHOWING_LINE = "event_finished_showing_line";
+    public const string EVENT__FAILED_SHAPE_TOO_MUCH = "event_failed_shape_too_much";
+    public const string EVENT__FAILED_SHAPE_TOO_LITTLE = "event_failed_shape_too_little";
 
 
     public class GeneralEvent : UnityEvent<object> { } //empty class; just needs to exist

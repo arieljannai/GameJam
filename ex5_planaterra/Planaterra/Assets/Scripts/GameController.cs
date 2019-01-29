@@ -47,11 +47,11 @@ public class GameController : MonoBehaviour
     private List<List<GameObject>> listWorldLands;
     private List<List<GameObject>> listConstellations;
     private List<GameObject> listCurrentShapes;
-    //private GameObject currentRedShape;
-    //private GameObject currentGreenShape;
     private List<GameShape> listCurrentScripts;
-    //private GameShape currentRedScript;
-    //private GameShape currentGreenScript;
+    private List<bool> listPlayerReadyToContinue;
+    private List<bool> listShouldRetryShape;
+    private List<bool> listShapeFailedTooMuch;
+    private List<bool> listShapeFailedTooLittle;
     private int[] points;
     private int idxRed = 0;
     private int idxGreen = 1;
@@ -66,6 +66,8 @@ public class GameController : MonoBehaviour
 
     private readonly int NUM_OF_PLAYERS = 2;
 
+    #region Unity Events
+
     void Awake()
     {
         Debug.Log("GameController.Awake()");
@@ -79,8 +81,13 @@ public class GameController : MonoBehaviour
         EventManager.Instance.StartListening(EventManager.EVENT__TUTORIAL_END, OnTutorialEnd);
         EventManager.Instance.StartListening(EventManager.EVENT__CONSTELLATION_END, OnConstellationEnd);
         EventManager.Instance.StartListening(EventManager.EVENT__LAND_ON, OnLandOn);
+        EventManager.Instance.StartListening(EventManager.EVENT__FINISHED_STRECHING, OnShapeFinishStreching);
         EventManager.Instance.StartListening(EventManager.EVENT__STARTED_DRAWING, OnShapeStartDrawing);
         EventManager.Instance.StartListening(EventManager.EVENT__FINISHED_DRAWING, OnShapeFinishDrawing);
+        EventManager.Instance.StartListening(EventManager.EVENT__FINISHED_SHOWING_LINE, OnShapeFinishShowingLine);
+        EventManager.Instance.StartListening(EventManager.EVENT__FAILED_SHAPE_TOO_MUCH, OnShapeFailedTooMuch);
+        EventManager.Instance.StartListening(EventManager.EVENT__FAILED_SHAPE_TOO_LITTLE, OnShapeFailedTooLIttle);
+
 
         if (!this.playingWithTutorial)
         {
@@ -98,6 +105,10 @@ public class GameController : MonoBehaviour
         this.listConstellations = new List<List<GameObject>>(NUM_OF_PLAYERS) { this.listRedConstellations, this.listGreenConstellations };
         this.listCurrentShapes = new List<GameObject>(NUM_OF_PLAYERS) { null, null };
         this.listCurrentScripts = new List<GameShape>(NUM_OF_PLAYERS) { null, null };
+        this.listPlayerReadyToContinue = new List<bool>(NUM_OF_PLAYERS) { false, false };
+        this.listShouldRetryShape = new List<bool>(NUM_OF_PLAYERS) { false, false };
+        this.listShapeFailedTooMuch = new List<bool>(NUM_OF_PLAYERS) { false, false };
+        this.listShapeFailedTooLittle = new List<bool>(NUM_OF_PLAYERS) { false, false };
 
         this.points = new int[NUM_OF_PLAYERS];
 
@@ -120,9 +131,22 @@ public class GameController : MonoBehaviour
                 this.listCurrentScripts[this.idxRed].IsReadyForDrawing = false;
                 this.listCurrentScripts[this.idxGreen].IsReadyForDrawing = false;
 
-                this.HideTutorialScreen();
+                if (!this.isTutorialOver && this.CanFinishRound())
+                {
+                    StartCoroutine(this.WaitAndRun(this.stayOnWinningStateTime, this.HideTutorialScreen));
+                }
+                
+                //this.listCurrentScripts[this.idxRed].ResetShape();
+                //this.listCurrentScripts[this.idxGreen].ResetShape();
 
-                this.HandleRoundWinner();
+                if (this.isTutorialOver)
+                {
+                    if (this.CanFinishRound())
+                    {
+                        this.HandleRoundWinner();
+                    }
+
+                }
             }
 
             //Debug.Log(this.timer);
@@ -131,10 +155,51 @@ public class GameController : MonoBehaviour
             {
                 this.isReadyForNextRound = true;
                 this.isWaitingForTimer = false;
-                this.winnersNotice[this.idxRed].Animator().SetState(0);
-                this.winnersNotice[this.idxGreen].Animator().SetState(0);
-                this.listCurrentShapes[this.idxRed].SetActive(false);
-                this.listCurrentShapes[this.idxGreen].SetActive(false);
+                
+                if (this.isTutorialOver)
+                {
+                    bool bothFailedTooMuch = this.listShapeFailedTooMuch[this.idxRed] && this.listShapeFailedTooMuch[this.idxGreen];
+                    bool bothFailedTooLittle = this.listShapeFailedTooLittle[this.idxRed] && this.listShapeFailedTooLittle[this.idxGreen];
+
+                    if (bothFailedTooMuch || bothFailedTooLittle)
+                    {
+                        this.listCurrentScripts[this.idxRed].ResetShape();
+                        //this.listCurrentShapes[this.idxRed].Animator().SetState(0);
+
+                        this.listCurrentScripts[this.idxGreen].ResetShape();
+                        //this.listCurrentShapes[this.idxGreen].Animator().SetState(0);
+
+                        //this.UpdateCurrents();
+                        // TODO: shake form animation
+                        // TODO: try again
+                        // TODO: constant shape
+                    }
+                    else
+                    {
+                        this.winnersNotice[this.idxRed].Animator().SetState(0);
+                        this.winnersNotice[this.idxGreen].Animator().SetState(0);
+                        this.listCurrentShapes[this.idxRed].SetActive(false);
+                        this.listCurrentShapes[this.idxGreen].SetActive(false);
+                    }
+                }
+                else
+                {
+                    if (this.listShapeFailedTooMuch[this.idxRed] || this.listShapeFailedTooLittle[this.idxRed])
+                    {
+                        this.listCurrentScripts[this.idxRed].ResetShape();
+                        //this.listCurrentShapes[this.idxRed].Animator().SetState(0);
+
+                        this.listCurrentScripts[this.idxGreen].ResetShape();
+                        //this.listCurrentShapes[this.idxGreen].Animator().SetState(0);
+
+                        //this.UpdateCurrents();
+                        // TODO: shake form animation
+                        // TODO: try again
+                        // TODO: constant shape
+                    }
+                }
+
+                
             }
 
             if (this.isReadyForNextRound)
@@ -147,13 +212,12 @@ public class GameController : MonoBehaviour
             {
                 if (Input.GetKey(this.player1DrawLineKey))
                 {
-                    this.shiftToHold[this.idxRed].Animator().SetInteger("State", 1);
-                    //this.shiftToHold[this.idxRed].Animator().CrossFade("RedShift_2", 2);
+                    this.shiftToHold[this.idxRed].Animator().SetState(1);
                 }
 
                 if (Input.GetKey(this.player2DrawLineKey))
                 {
-                    this.shiftToHold[this.idxGreen].Animator().SetInteger("State", 1);
+                    this.shiftToHold[this.idxGreen].Animator().SetState(1);
                 }
             } 
         }
@@ -167,6 +231,8 @@ public class GameController : MonoBehaviour
             this.NewGame();
         }
     }
+
+    #endregion
 
     private void HandleRoundWinner()
     {
@@ -186,25 +252,16 @@ public class GameController : MonoBehaviour
                 {
                     winner = idxGreen;
                     loser = idxRed;
-                    //this.listCurrentShapes[this.idxGreen].Animator().SetState(3);
-                    //this.listCurrentShapes[this.idxGreen].Animator().CrossFade("GConstellation_ShapeWin", 0);
-                    ////this.listCurrentShapes[this.idxRed].Animator().SetState(2);
-                    //this.listCurrentShapes[this.idxRed].Animator().CrossFade("RConstellation_FadeOut", 0);
                 }
                 else
                 {
                     winner = idxRed;
                     loser = idxGreen;
-                    ////this.listCurrentShapes[this.idxRed].Animator().SetState(3);
-                    //this.listCurrentShapes[this.idxRed].Animator().CrossFade("RConstellation_ShapeWin", 0);
-                    ////this.listCurrentShapes[this.idxGreen].Animator().SetState(2);
-                    //this.listCurrentShapes[this.idxGreen].Animator().CrossFade("GConstellation_FadeOut", 0);
                 }
 
                 this.lastWinner = winner;
                 this.points[winner]++;
-
-                //this.listWorldLands[winner][this.currentShapeIndex].SetOpacity(255);
+                
                 Debug.Log(string.Format("Player {0} won this round. {0}: {1}; {2}: {3}",
                     (GameShape.Players)(winner + 1), this.points[winner], (GameShape.Players)(loser + 1), this.points[loser]));
             }
@@ -245,21 +302,29 @@ public class GameController : MonoBehaviour
         else
         {
             this.listCurrentShapes[this.idxRed] = this.tutorialRedShape;
+            //this.listCurrentShapes[this.idxRed] = this.shiftToHold[this.idxRed];
             this.listCurrentShapes[this.idxRed].SetActive(true);
 
             this.listCurrentShapes[this.idxGreen] = this.tutorialGreenShape;
+            //this.listCurrentShapes[this.idxGreen] = this.shiftToHold[this.idxGreen];
             this.listCurrentShapes[this.idxGreen].SetActive(true);
         }
 
         this.listCurrentScripts[this.idxRed] = this.listCurrentShapes[this.idxRed].GetComponent(typeof(GameShape)) as GameShape;
-        this.listCurrentScripts[this.idxRed].IsTutorial = !this.isTutorialOver;
+        //this.listCurrentScripts[this.idxRed].IsTutorial = !this.isTutorialOver;
         this.DisableShapesExcept(this.listRedConstellations, this.listCurrentShapes[this.idxRed], this.idxRed);
         this.listCurrentScripts[this.idxRed].IsActive = true;
+        this.listCurrentScripts[this.idxRed].MinimumSuccessRate = this.GetCurrentMinimumSuccessRate(this.idxRed);
+        this.listShapeFailedTooMuch[this.idxRed] = false;
+        this.listShapeFailedTooLittle[this.idxRed] = false;
 
         this.listCurrentScripts[this.idxGreen] = this.listCurrentShapes[this.idxGreen].GetComponent(typeof(GameShape)) as GameShape;
-        this.listCurrentScripts[this.idxGreen].IsTutorial = !this.isTutorialOver;
+        //this.listCurrentScripts[this.idxGreen].IsTutorial = !this.isTutorialOver;
         this.DisableShapesExcept(this.listGreenConstellations, this.listCurrentShapes[this.idxGreen], this.idxGreen);
         this.listCurrentScripts[this.idxGreen].IsActive = true;
+        this.listCurrentScripts[this.idxGreen].MinimumSuccessRate = this.GetCurrentMinimumSuccessRate(this.idxGreen);
+        this.listShapeFailedTooMuch[this.idxGreen] = false;
+        this.listShapeFailedTooLittle[this.idxGreen] = false;
 
         this.PlayersMarkers[this.idxRed].SetActive(true);
         this.PlayersMarkers[this.idxGreen].SetActive(true);
@@ -297,30 +362,6 @@ public class GameController : MonoBehaviour
         //    list.ForEach(go => go.GetComponent<Animator>().enabled = (go == obj));
         //}
     }
-
-    //private void SetOpacityExcept(List<GameObject> list, float opacity, GameObject obj)
-    //{
-    //    foreach (GameObject go in list)
-    //    {
-    //        if (go != obj)
-    //        {
-    //            go.SetOpacity(opacity);
-    //        }
-    //    }
-    //}
-
-    //private void SetOpacityExcept(List<GameObject> list, float opacity, params GameObject[] objects)
-    //{
-    //    HashSet<GameObject> hs = new HashSet<GameObject>(objects);
-
-    //    foreach (GameObject go in list)
-    //    {
-    //        if (!hs.Contains(go))
-    //        {
-    //            go.SetOpacity(opacity);
-    //        }
-    //    }
-    //}
     
     private bool WaitTime(float time)
     {
@@ -330,6 +371,53 @@ public class GameController : MonoBehaviour
     private void NewGame()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private double GetCurrentMinimumSuccessRate(int playerIndex)
+    {
+        int currIdx = this.isTutorialOver ? this.currentShapeIndex + 1 : 0;
+        return this.minimunSuccessRate[currIdx] / 100.0;
+    }
+
+    private bool IsPassingSuccessRate(int playerIndex)
+    {
+        return this.listCurrentScripts[playerIndex].GetSuccessRate >= this.GetCurrentMinimumSuccessRate(playerIndex);
+    }
+
+    private bool CanFinishRound()
+    {
+        bool bothFailedTooMuch = this.listShapeFailedTooMuch[this.idxRed] && this.listShapeFailedTooMuch[this.idxGreen];
+        bool bothFailedTooLittle = this.listShapeFailedTooLittle[this.idxRed] && this.listShapeFailedTooLittle[this.idxGreen];
+
+        if (!this.isTutorialOver)
+        {
+            return !bothFailedTooMuch && !bothFailedTooLittle; 
+        }
+        else
+        {
+            return !(bothFailedTooMuch && bothFailedTooLittle);
+        }
+    }
+
+    private IEnumerator WaitAndRun(float waitSeconds, System.Action action)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+        Debug.Log("Waited " + waitSeconds + " seconds. Now running: " + action);
+        action();
+    }
+
+    private IEnumerator WaitAndRun(float waitSeconds, System.Action<object> action, object triggerValue)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+        Debug.Log("Waited " + waitSeconds + " seconds. Now running: " + action);
+        action(triggerValue);
+    }
+
+    private IEnumerator WaitAndRun(float waitSeconds, System.Action<string, object> action, string eventName, object triggerValue)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+        Debug.Log("Waited " + waitSeconds + " seconds. Now running: " + action);
+        action(eventName, triggerValue);
     }
 
     #region Handle Screen Changes
@@ -349,62 +437,85 @@ public class GameController : MonoBehaviour
     private void OnLandOn(object obj)
     {
         //this.isReadyForNextRound = true;
-        this.isWaitingForTimer = true;
-        this.timer = 0;
+        //this.isWaitingForTimer = true;
+        //this.timer = 0;
+    }
+
+    private void OnShapeFinishStreching(object obj)
+    {
+        int playerNumber = (int)obj;
+        this.shiftToHold[playerNumber].Animator().SetState(2);
+    }
+    
+    private void OnShapeStartDrawing(object obj)
+    {
+        int playerNumber = (int)obj;
     }
 
     private void OnShapeFinishDrawing(object obj)
     {
         int playerNumber = (int)obj;
 
-        if (this.lastWinner == playerNumber)
+        this.listPlayerReadyToContinue[playerNumber] = true;
+
+        if (this.lastWinner > -1 && this.listPlayerReadyToContinue[this.idxRed] && this.listPlayerReadyToContinue[this.idxGreen])
         {
-            // TODO: the minus one doesn't supposed to be here, should fix timing of other things
+            Debug.Log("finished drawing " + playerNumber);
+
             this.listWorldLands[this.lastWinner][this.currentShapeIndex - 1].Animator().SetState(1);
             this.winnersNotice[this.lastWinner].Animator().SetState(1);
 
-            string sConstellationLetter = playerNumber == this.idxRed ? "R" : "G";
-            string sOtherConstellationLetter = playerNumber == this.idxRed ? "G" : "R";
+            this.listPlayerReadyToContinue[this.idxRed] = false;
+            this.listPlayerReadyToContinue[this.idxGreen] = false;
 
-            //this.listCurrentShapes[this.lastWinner].Animator().SetState(3);
-            this.listCurrentShapes[this.lastWinner].Animator().CrossFade(sConstellationLetter + "Constellation_ShapeWin", 2);
-
-            int otherPlayer = this.lastWinner == this.idxRed ? this.idxGreen : this.idxRed;
-
-            //this.listCurrentShapes[otherPlayer].Animator().SetState(2);
-            this.listCurrentShapes[otherPlayer].Animator().CrossFade(sOtherConstellationLetter + "Constellation_FadeOut", 0);
-
-
-
-            //if (this.lastWinner == this.idxRed)
-            //{
-            //    this.listCurrentShapes[this.idxRed].Animator().SetState(3);
-            //    this.listCurrentShapes[this.idxRed].Animator().CrossFade("RConstellation_ShapeWin", 2);
-            //    //this.listCurrentShapes[this.idxGreen].Animator().SetState(2);
-            //    //this.listCurrentShapes[this.idxGreen].Animator().CrossFade("GConstellation_FadeOut", 0);
-            //}
-            //else if (this.lastWinner == this.idxGreen)
-            //{
-            //    this.listCurrentShapes[this.idxGreen].Animator().SetState(3);
-            //    this.listCurrentShapes[this.idxGreen].Animator().CrossFade("GConstellation_ShapeWin", 2);
-            //    //this.listCurrentShapes[this.idxRed].Animator().SetState(2);
-            //    //this.listCurrentShapes[this.idxRed].Animator().CrossFade("RConstellation_FadeOut", 0);
-            //}
+            StartCoroutine(WaitAndRun(this.stayOnWinningStateTime, OnShapeFinishShowingLine, this.idxRed));
+            StartCoroutine(WaitAndRun(this.stayOnWinningStateTime, OnShapeFinishShowingLine, this.idxGreen));
         }
     }
 
-    private void OnShapeStartDrawing(object obj)
+    private void OnShapeFinishShowingLine(object obj)
     {
         int playerNumber = (int)obj;
-        //Debug.Log("hhh" + obj);
-        //this.PlayersMarkers[playerNumber].SetOpacity(0);
-        //this.PlayersMarkers[playerNumber].SetActive(false);
+        this.listPlayerReadyToContinue[playerNumber] = true;
+        
+        if (this.lastWinner > -1 && this.listPlayerReadyToContinue[this.idxRed] && this.listPlayerReadyToContinue[this.idxGreen])
+        {
+            Debug.Log(Helpers.GetCurrentMethod());
+            
+            string sConstellationLetter = playerNumber == this.idxRed ? "R" : "G";
+            string sOtherConstellationLetter = playerNumber == this.idxRed ? "G" : "R";
 
-        //this.shiftToHold[playerNumber].Animator().SetState(0);
-        this.shiftToHold[this.idxRed].Animator().SetState(2);
-        this.shiftToHold[this.idxRed].Animator().CrossFade("RedShift_1", 2);
-        this.shiftToHold[this.idxGreen].Animator().SetState(2);
-        this.shiftToHold[this.idxGreen].Animator().CrossFade("GreenShift_1", 2);
+            Debug.Log("last winner: " + this.lastWinner);
+            this.listCurrentShapes[this.lastWinner].Animator().SetState(3);
+            //this.listCurrentShapes[this.lastWinner].Animator().CrossFade(sConstellationLetter + "Constellation_ShapeWin", 2);
+
+            int otherPlayer = this.lastWinner == this.idxRed ? this.idxGreen : this.idxRed;
+
+            this.listCurrentShapes[otherPlayer].Animator().SetState(2);
+            //this.listCurrentShapes[otherPlayer].Animator().CrossFade(sOtherConstellationLetter + "Constellation_FadeOut", 0);
+
+            this.listPlayerReadyToContinue[this.idxRed] = false;
+            this.listPlayerReadyToContinue[this.idxGreen] = false;
+
+            this.isWaitingForTimer = true;
+            this.timer = 0;
+
+
+            this.listCurrentScripts[this.idxRed].ResetShape();
+            this.listCurrentScripts[this.idxGreen].ResetShape();
+        }
+    }
+
+    private void OnShapeFailedTooMuch(object obj)
+    {
+        int playerNumber = (int)obj;
+        this.listShapeFailedTooMuch[playerNumber] = true;
+    }
+
+    private void OnShapeFailedTooLIttle(object obj)
+    {
+        int playerNumber = (int)obj;
+        this.listShapeFailedTooLittle[playerNumber] = true;
     }
 
     private void HandleGameOver()
@@ -418,10 +529,12 @@ public class GameController : MonoBehaviour
 
     private void HideTutorialScreen()
     {
+        this.listCurrentScripts[this.idxRed].ResetShape();
+        this.listCurrentScripts[this.idxGreen].ResetShape();
         this.shiftToHold[this.idxRed].Animator().SetState(2);
-        this.shiftToHold[this.idxRed].Animator().CrossFade("RedShift_FadeOut", 2);
         this.shiftToHold[this.idxGreen].Animator().SetState(2);
-        this.shiftToHold[this.idxGreen].Animator().CrossFade("GreenShift_FadeOut", 2);
+        //StartCoroutine(this.WaitAndRun(1, this.listCurrentScripts[this.idxRed].ResetShape));
+        //StartCoroutine(this.WaitAndRun(1, this.listCurrentScripts[this.idxGreen].ResetShape));
         this.openScreen.Animator().SetState(1);
         
         //DisableShape(this.tutorialRedShape);

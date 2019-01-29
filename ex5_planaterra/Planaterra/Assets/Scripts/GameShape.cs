@@ -20,10 +20,10 @@ public class GameShape : MonoBehaviour
     private bool isReadyForDrawing = false;
     private bool canDraw = true;
     private bool shouldDraw = false;
-    private bool finishedDrawing = false;
+    private bool finishedDrawingStrechingLine = false;
     private bool isActive = false;
-    private bool isTutorial = false;
-    private bool shouldTryAgain = false;
+    //private bool isTutorial = false;
+    //private bool shouldTryAgain = false;
     private bool disableWhenDone = false;
     private bool shouldFadeOut = false;
     private float strechingLineDrawingSpeed;
@@ -31,6 +31,7 @@ public class GameShape : MonoBehaviour
     private float wrappingPartLineLength;
     private float formLength;
     private float successRate;
+    private double minimumSuccessRate;
     private int pointsAmount;
     private int wrappingLineTotalPoints = 120;
     private int idxHandleLineDrawing = 0;
@@ -87,7 +88,6 @@ public class GameShape : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha0))
             {
                 this.ResetShape();
-                this.canDraw = true;
                 // TODO: reset everything
             }
 
@@ -105,17 +105,17 @@ public class GameShape : MonoBehaviour
             {
                 this.gameLineEnd += new Vector2(0f, this.strechingLineDrawingSpeed);
                 this.mdStrechingLine.Renderer.SetPositions(new Vector3[] { this.gameLineStart, this.gameLineEnd });
-                this.finishedDrawing = true;
+                this.finishedDrawingStrechingLine = true;
             }
             else
             {
-                if (this.finishedDrawing)
+                if (this.finishedDrawingStrechingLine)
                 {
                     this.canDraw = false;
                     this.CalculateLinesToDraw();
                     this.isReadyForDrawing = true;
-                    this.finishedDrawing = false;
-                    EventManager.Instance.TriggerEvent(EventManager.EVENT__STARTED_DRAWING, this.GetPlayerIndex());
+                    this.finishedDrawingStrechingLine = false;
+                    EventManager.Instance.TriggerEvent(EventManager.EVENT__FINISHED_STRECHING, this.GetPlayerIndex());
                 }
             }
         }
@@ -143,17 +143,17 @@ public class GameShape : MonoBehaviour
         set { this.isActive = value; }
     }
 
-    public bool IsTutorial
-    {
-        get { return this.isTutorial; }
-        set { this.isTutorial = value; }
-    }
+    //public bool IsTutorial
+    //{
+    //    get { return this.isTutorial; }
+    //    set { this.isTutorial = value; }
+    //}
 
-    public bool ShouldTryAgain
-    {
-        get { return this.shouldTryAgain; }
-        set { this.shouldTryAgain = value; }
-    }
+    //public bool ShouldTryAgain
+    //{
+    //    get { return this.shouldTryAgain; }
+    //    set { this.shouldTryAgain = value; }
+    //}
 
     public bool DisableWhenDone
     {
@@ -165,6 +165,12 @@ public class GameShape : MonoBehaviour
     {
         get { return this.successRate; }
     } 
+
+    public double MinimumSuccessRate
+    {
+        get { return this.minimumSuccessRate; }
+        set { this.minimumSuccessRate = value; }
+    }
 
     #endregion
 
@@ -195,6 +201,7 @@ public class GameShape : MonoBehaviour
         int i = this.idxHandleLineDrawing;
         Vector3[] positions;
 
+        if (this.idxHandleLineDrawing == 0) EventManager.Instance.TriggerEvent(EventManager.EVENT__STARTED_DRAWING, this.GetPlayerIndex());
 
         if (i < this.pointsToDraw.Count - 1)
         {   
@@ -218,16 +225,30 @@ public class GameShape : MonoBehaviour
             this.isReadyForDrawing = false;
             this.shouldDraw = false;
 
-            if (this.disableWhenDone)
-            {
-                //this.gameObject.SetOpacity(0);
-                this.gameObject.SetActive(false);
-                //this.shouldFadeOut = true;
+            //if (this.disableWhenDone)
+            //{
+            //    //this.gameObject.SetOpacity(0);
+            //    this.gameObject.SetActive(false);
+            //    //this.shouldFadeOut = true;
 
+            //}
+
+            if (this.successRate > 1)
+            {
+                EventManager.Instance.TriggerEvent(EventManager.EVENT__FAILED_SHAPE_TOO_MUCH, this.GetPlayerIndex());
+            }
+            else if (this.successRate < this.minimumSuccessRate)
+            {
+                EventManager.Instance.TriggerEvent(EventManager.EVENT__FAILED_SHAPE_TOO_LITTLE, this.GetPlayerIndex());
             }
 
-            this.ResetShape();
             EventManager.Instance.TriggerEvent(EventManager.EVENT__FINISHED_DRAWING, this.GetPlayerIndex());
+
+            //StartCoroutine(this.WaitAndRun(2, this.ResetShape));
+            //StartCoroutine(this.WaitAndRun(2, EventManager.Instance.TriggerEvent, EventManager.EVENT__FINISHED_SHOWING_LINE, this.GetPlayerIndex()));
+
+            //this.ResetShape();
+            //EventManager.Instance.TriggerEvent(EventManager.EVENT__FINISHED_DRAWING, this.GetPlayerIndex());
         }
 
         this.idxHandleLineDrawing = i;
@@ -238,17 +259,17 @@ public class GameShape : MonoBehaviour
         //Log(string.Format("this.gameLineStart:{0}, this.gameLineEnd:{1}", this.gameLineStart, this.gameLineEnd));
         this.strechingLineLength = Vector2.Distance(this.gameLineStart, this.gameLineEnd);
 
-        if (this.isTutorial)
-        {
-            if ((this.strechingLineLength / this.formLength) >= 0.5)
-            {
-                this.strechingLineLength = this.formLength;
-            }
-            else
-            {
-                this.shouldTryAgain = true;
-            }
-        }
+        //if (this.isTutorial)
+        //{
+        //    if ((this.strechingLineLength / this.formLength) >= 0.5)
+        //    {
+        //        this.strechingLineLength = this.formLength;
+        //    }
+        //    else
+        //    {
+        //        this.shouldTryAgain = true;
+        //    }
+        //}
 
         float dLineLength = this.strechingLineLength;
         this.successRate = dLineLength / this.formLength;
@@ -367,6 +388,8 @@ public class GameShape : MonoBehaviour
         this.mdStrechingLine.Renderer.SetPositions(new Vector3[] { Vector3.zero, Vector3.zero });
         this.lrShape.SetPositions(new Vector3[] { this.points[0], this.points[0] });
         this.lrShape.positionCount = 2;
+        this.isActive = true;
+        this.canDraw = true;
     }
 
     private void InitObjects()
@@ -387,21 +410,7 @@ public class GameShape : MonoBehaviour
 
         this.wrappingPartLineLength = this.formLength / (this.wrappingLineTotalPoints - this.points.Count);
     }
-
-    private Vector3[] ToVector3Arr(List<Vector2> l)
-    {
-        Vector3[] arr = new Vector3[l.Count];
-        int i = 0;
-
-        foreach (Vector2 v in l)
-        {
-            arr[i] = v;
-            i++;
-        }
-
-        return arr;
-    }
-
+    
     private void SetMarkingPointsOpacity(float opacity)
     {
         this.markingDots.ForEach(x => x.SetOpacity(opacity));
@@ -409,10 +418,25 @@ public class GameShape : MonoBehaviour
         this.mdStrechingLine.Point.SetOpacity(opacity);
     }
 
+    private IEnumerator WaitAndRun(float waitSeconds, System.Action action)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+        Log("Waited " + waitSeconds + " seconds. Now running: " + action);
+        action();
+    }
+
+    private IEnumerator WaitAndRun(float waitSeconds, System.Action<string, object> action, string eventName, object triggerValue)
+    {
+        yield return new WaitForSeconds(waitSeconds);
+        Log("Waited " + waitSeconds + " seconds. Now running: " + action);
+        action(eventName, triggerValue);
+    }
+
     public int GetPlayerIndex()
     {
         return this.playerNumber == Players.P1 ? 0 : 1;
     }
+    
 
     #region Events
 
