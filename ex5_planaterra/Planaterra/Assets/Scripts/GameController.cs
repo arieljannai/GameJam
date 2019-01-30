@@ -78,15 +78,20 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.Instance.StartListening(EventManager.EVENT__TUTORIAL_END, OnTutorialEnd);
         EventManager.Instance.StartListening(EventManager.EVENT__CONSTELLATION_END, OnConstellationEnd);
         EventManager.Instance.StartListening(EventManager.EVENT__LAND_ON, OnLandOn);
+
         EventManager.Instance.StartListening(EventManager.EVENT__FINISHED_STRECHING, OnShapeFinishStreching);
         EventManager.Instance.StartListening(EventManager.EVENT__STARTED_DRAWING, OnShapeStartDrawing);
         EventManager.Instance.StartListening(EventManager.EVENT__FINISHED_DRAWING, OnShapeFinishDrawing);
         EventManager.Instance.StartListening(EventManager.EVENT__FINISHED_SHOWING_LINE, OnShapeFinishShowingLine);
+
         EventManager.Instance.StartListening(EventManager.EVENT__FAILED_SHAPE_TOO_MUCH, OnShapeFailedTooMuch);
         EventManager.Instance.StartListening(EventManager.EVENT__FAILED_SHAPE_TOO_LITTLE, OnShapeFailedTooLIttle);
+
+        EventManager.Instance.StartListening(EventManager.EVENT__TUTORIAL_END, OnTutorialEnd);
+        EventManager.Instance.StartListening(EventManager.EVENT__TUTORIAL_TURTLE_VISIBLE, OnTutorialTurtleVisible);
+
 
 
         if (!this.playingWithTutorial)
@@ -212,12 +217,12 @@ public class GameController : MonoBehaviour
             {
                 if (Input.GetKey(this.player1DrawLineKey))
                 {
-                    this.shiftToHold[this.idxRed].Animator().SetState(1);
+                    this.shiftToHold[this.idxRed].Animator().SetState(Animators.SHIFT__TO_HOLD);
                 }
 
                 if (Input.GetKey(this.player2DrawLineKey))
                 {
-                    this.shiftToHold[this.idxGreen].Animator().SetState(1);
+                    this.shiftToHold[this.idxGreen].Animator().SetState(Animators.SHIFT__TO_HOLD);
                 }
             } 
         }
@@ -444,7 +449,7 @@ public class GameController : MonoBehaviour
     private void OnShapeFinishStreching(object obj)
     {
         int playerNumber = (int)obj;
-        this.shiftToHold[playerNumber].Animator().SetState(2);
+        this.shiftToHold[playerNumber].Animator().SetState(Animators.SHIFT__FADE_OUT);
     }
     
     private void OnShapeStartDrawing(object obj)
@@ -462,7 +467,7 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("finished drawing " + playerNumber);
 
-            this.listWorldLands[this.lastWinner][this.currentShapeIndex - 1].Animator().SetState(1);
+            this.listWorldLands[this.lastWinner][this.currentShapeIndex - 1].Animator().SetState(Animators.LAND__ON);
             this.winnersNotice[this.lastWinner].Animator().SetState(1);
 
             this.listPlayerReadyToContinue[this.idxRed] = false;
@@ -486,12 +491,12 @@ public class GameController : MonoBehaviour
             string sOtherConstellationLetter = playerNumber == this.idxRed ? "G" : "R";
 
             Debug.Log("last winner: " + this.lastWinner);
-            this.listCurrentShapes[this.lastWinner].Animator().SetState(3);
+            this.listCurrentShapes[this.lastWinner].Animator().SetState(Animators.CONSTELLATION__SHAPE_WIN);
             //this.listCurrentShapes[this.lastWinner].Animator().CrossFade(sConstellationLetter + "Constellation_ShapeWin", 2);
 
             int otherPlayer = this.lastWinner == this.idxRed ? this.idxGreen : this.idxRed;
 
-            this.listCurrentShapes[otherPlayer].Animator().SetState(2);
+            this.listCurrentShapes[otherPlayer].Animator().SetState(Animators.CONSTELLATION__FADE_OUT);
             //this.listCurrentShapes[otherPlayer].Animator().CrossFade(sOtherConstellationLetter + "Constellation_FadeOut", 0);
 
             this.listPlayerReadyToContinue[this.idxRed] = false;
@@ -518,6 +523,11 @@ public class GameController : MonoBehaviour
         this.listShapeFailedTooLittle[playerNumber] = true;
     }
 
+    private void OnTutorialTurtleVisible(object obj)
+    {
+
+    }
+
     private void HandleGameOver()
     {
         if (this.lastWinner == this.idxRed || this.lastWinner == this.idxGreen)
@@ -531,11 +541,11 @@ public class GameController : MonoBehaviour
     {
         this.listCurrentScripts[this.idxRed].ResetShape();
         this.listCurrentScripts[this.idxGreen].ResetShape();
-        this.shiftToHold[this.idxRed].Animator().SetState(2);
-        this.shiftToHold[this.idxGreen].Animator().SetState(2);
+        this.shiftToHold[this.idxRed].Animator().SetState(Animators.SHIFT__FADE_OUT);
+        this.shiftToHold[this.idxGreen].Animator().SetState(Animators.SHIFT__FADE_OUT);
         //StartCoroutine(this.WaitAndRun(1, this.listCurrentScripts[this.idxRed].ResetShape));
         //StartCoroutine(this.WaitAndRun(1, this.listCurrentScripts[this.idxGreen].ResetShape));
-        this.openScreen.Animator().SetState(1);
+        this.openScreen.Animator().SetState(Animators.OPEN_SCREEN__FADE_OUT);
         
         //DisableShape(this.tutorialRedShape);
         //DisableShape(this.tutorialGreenShape);
@@ -543,7 +553,7 @@ public class GameController : MonoBehaviour
 
     private void ShowMainScreen()
     {
-        this.turtleDisc.Animator().SetState(1);
+        this.turtleDisc.Animator().SetState(Animators.TURTLE_DISC__FADE_IN);
     }
     
     #endregion

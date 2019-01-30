@@ -19,6 +19,7 @@ public class EventManager : Singleton<EventManager>
     public const string EVENT__FINISHED_SHOWING_LINE = "event_finished_showing_line";
     public const string EVENT__FAILED_SHAPE_TOO_MUCH = "event_failed_shape_too_much";
     public const string EVENT__FAILED_SHAPE_TOO_LITTLE = "event_failed_shape_too_little";
+    public const string EVENT__TUTORIAL_TURTLE_VISIBLE = "event_tutorial_turtle_visible";
 
 
     public class GeneralEvent : UnityEvent<object> { } //empty class; just needs to exist

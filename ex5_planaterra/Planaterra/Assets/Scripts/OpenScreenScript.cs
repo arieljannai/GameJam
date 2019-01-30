@@ -8,4 +8,9 @@ public class OpenScreenScript : MonoBehaviour
     {
         EventManager.Instance.TriggerEvent(EventManager.EVENT__TUTORIAL_END, null);
     }
+
+    public void OpenScreen_FadeIn_End()
+    {
+        EventManager.Instance.TriggerEvent(EventManager.EVENT__TUTORIAL_TURTLE_VISIBLE, null);
+    }
 }
