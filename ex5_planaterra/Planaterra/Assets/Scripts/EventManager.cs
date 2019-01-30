@@ -20,6 +20,9 @@ public class EventManager : Singleton<EventManager>
     public const string EVENT__FAILED_SHAPE_TOO_MUCH = "event_failed_shape_too_much";
     public const string EVENT__FAILED_SHAPE_TOO_LITTLE = "event_failed_shape_too_little";
     public const string EVENT__TUTORIAL_TURTLE_VISIBLE = "event_tutorial_turtle_visible";
+    public const string EVENT__INSTRUCTIONS_FADEIN_END = "event_instructions_fadein_end";
+    public const string EVENT__TURTLE_DISC_FADEIN_END = "event_turtle_disc_fadein_end";
+    public const string EVENT__OUTLINES_SHAPE_FADEOUT = "event_outlines_shape_fadeout";
 
 
     public class GeneralEvent : UnityEvent<object> { } //empty class; just needs to exist

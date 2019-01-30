@@ -41,4 +41,17 @@ public static class Animators
 
     public static readonly int LAND__OFF = 0;
     public static readonly int LAND__ON = 1;
+
+    // TODO: victories
+
+    public static readonly int OUTLINES__OFF = 0;
+    public static readonly int OUTLINES__SHAPE_1 = 1;
+    public static readonly int OUTLINES__SHAPE_2 = 2;
+    public static readonly int OUTLINES__SHAPE_3 = 3;
+    public static readonly int OUTLINES__SHAPE_4 = 4;
+    public static readonly int OUTLINES__SHAPE_5 = 5;
+    public static readonly string OUTLINES__SHAPE_X = "OUTLINES__SHAPE_X";
+
+
+    // TODO: victory
 }
