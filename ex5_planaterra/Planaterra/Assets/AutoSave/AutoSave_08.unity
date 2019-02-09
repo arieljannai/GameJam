@@ -18495,6 +18495,7 @@ MonoBehaviour:
   tutorialRedShape: {fileID: 911632017}
   tutorialGreenShape: {fileID: 725467241}
   instructions: {fileID: 1202109173}
+  outlines: {fileID: 1034475004}
   shiftTexts:
   - {fileID: 1990818206}
   - {fileID: 494370861}
@@ -18504,9 +18505,12 @@ MonoBehaviour:
   shiftToHold:
   - {fileID: 141989798}
   - {fileID: 1325861371}
-  winnersNotice:
+  winnersRoundNotice:
   - {fileID: 112585796}
   - {fileID: 267523193}
+  winnersGameNotice:
+  - {fileID: 1026475428}
+  - {fileID: 886130425}
   PlayersMarkers:
   - {fileID: 1393220258}
   - {fileID: 1377099164}

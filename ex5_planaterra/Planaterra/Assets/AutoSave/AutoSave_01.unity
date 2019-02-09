@@ -18495,7 +18495,7 @@ MonoBehaviour:
   tutorialRedShape: {fileID: 911632017}
   tutorialGreenShape: {fileID: 725467241}
   instructions: {fileID: 1202109173}
-  outlines: {fileID: 0}
+  outlines: {fileID: 1034475004}
   shiftTexts:
   - {fileID: 1990818206}
   - {fileID: 494370861}
